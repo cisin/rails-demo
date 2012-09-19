@@ -1,0 +1,12 @@
+= semantic_form_for resource do |f|
+  = f.inputs do
+    = f.input :id, :input_html => { :autofocus => true, :size => 20}
+    = f.input :description, :input_html => {:size => 90, :maxlength  => 100}
+    = f.input :weight, :input_html => {:size => 20}
+    = f.input :clothing_type, :as => :radio, :collection => LinenItem::ClothingType.to_a
+    = f.input :linen_type, :as => :radio, :collection => LinenItem::LinenType.to_a
+    = f.input :color, :as => :radio, :collection => LinenItem::Color.to_a
+    = f.input :fibre_type, :as => :radio, :collection => LinenItem::FibreType.to_a
+    = f.commit_button :button_html => { :disable_with => "Aguarde..." }
+
+

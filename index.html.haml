@@ -1,0 +1,37 @@
+%h2
+  = t 'title.list', :resource_name => resource_class.model_name.human(:count => :many)
+
+%table.records
+  %thead
+    %tr
+      %th= resource_class.human_attribute_name :description
+      %th= resource_class.human_attribute_name :weight
+      %th= resource_class.human_attribute_name :clothing_type
+      %th= resource_class.human_attribute_name :linen_type
+      %th= resource_class.human_attribute_name :color
+      %th= resource_class.human_attribute_name :fibre_type
+      %th.small
+  %tbody
+    - if collection.empty?
+      %tr
+        %td.empty{:colspan => 7}
+          = t('title.empty.male', :resource_name => resource_class.model_name.human)
+
+    - else
+      - collection.each do |resource|
+        %tr[resource]
+          %td= resource.description
+          %td= resource.weight
+          %td= resource.clothing_type_humanize
+          %td= resource.linen_type_humanize
+          %td= resource.color_humanize
+          %td= resource.fibre_type_humanize
+          %td.small
+            = link_to image_tag('icons/edit.png'), edit_resource_path(resource), :title => t('title.edit', :resource_name => resource_class.model_name.human)
+            = link_to image_tag('icons/destroy.png'), resource_path(resource), :title => t('title.destroy.link', :resource_name => resource_class.model_name.human), :method => :delete, :confirm => t('title.destroy.confirm')
+
+= will_paginate collection
+
+%p
+  = link_to t('title.search', :resource_name => resource_class.model_name.human(:count => :many)), search_resources_path, :class => :small_button
+  = link_to t('title.new.male', :resource_name => resource_class.model_name.human), new_resource_path, :class => :small_button
